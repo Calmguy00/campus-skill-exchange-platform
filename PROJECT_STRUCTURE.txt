@@ -1,0 +1,285 @@
+CAMPUS SKILL EXCHANGE PLATFORM - COMPLETE FILE STRUCTURE
+==========================================================
+
+📁 Root Directory
+│
+├── 📄 README.md                          → Project documentation
+├── 📄 SETUP_GUIDE.md                     → Installation instructions  
+├── 📄 PROJECT_STRUCTURE.txt              → This file
+├── 📄 package.json                       → Dependencies and scripts
+├── 📄 vite.config.ts                     → Vite configuration
+├── 📄 postcss.config.mjs                 → PostCSS config
+├── 📄 tsconfig.json                      → TypeScript config
+│
+├── 📁 public/                            → Static assets
+│
+├── 📁 src/
+│   │
+│   ├── 📄 main.tsx                       → Entry point
+│   │
+│   ├── 📁 app/
+│   │   │
+│   │   ├── 📄 App.tsx                    → Main component (RouterProvider)
+│   │   ├── 📄 routes.tsx                 → Route configuration
+│   │   │
+│   │   ├── 📁 components/
+│   │   │   │
+│   │   │   ├── 📄 Layout.tsx             → Navigation + layout wrapper
+│   │   │   │
+│   │   │   ├── 📁 figma/
+│   │   │   │   └── 📄 ImageWithFallback.tsx
+│   │   │   │
+│   │   │   └── 📁 ui/                    → Reusable UI components
+│   │   │       ├── 📄 accordion.tsx
+│   │   │       ├── 📄 alert-dialog.tsx
+│   │   │       ├── 📄 alert.tsx
+│   │   │       ├── 📄 avatar.tsx
+│   │   │       ├── 📄 badge.tsx          ✨ Used for request status
+│   │   │       ├── 📄 button.tsx         ✨ Used everywhere
+│   │   │       ├── 📄 card.tsx           ✨ Used for skill cards
+│   │   │       ├── 📄 checkbox.tsx
+│   │   │       ├── 📄 dialog.tsx
+│   │   │       ├── 📄 dropdown-menu.tsx
+│   │   │       ├── 📄 input.tsx          ✨ Used in forms
+│   │   │       ├── 📄 label.tsx          ✨ Used in forms
+│   │   │       ├── 📄 select.tsx         ✨ Used for department/year
+│   │   │       ├── 📄 separator.tsx
+│   │   │       ├── 📄 sonner.tsx         ✨ Toast notifications
+│   │   │       ├── 📄 tabs.tsx           ✨ Used in requests page
+│   │   │       ├── 📄 textarea.tsx       ✨ Used for skill description
+│   │   │       └── 📄 utils.ts
+│   │   │
+│   │   ├── 📁 pages/                     → All application pages
+│   │   │   │
+│   │   │   ├── 📄 HomePage.tsx           → Landing page
+│   │   │   │   • Hero section
+│   │   │   │   • Features showcase
+│   │   │   │   • CTA buttons
+│   │   │   │
+│   │   │   ├── 📄 RegisterPage.tsx       → User registration
+│   │   │   │   • Name input
+│   │   │   │   • Email input
+│   │   │   │   • Department select
+│   │   │   │   • Year select
+│   │   │   │   • Password input
+│   │   │   │
+│   │   │   ├── 📄 LoginPage.tsx          → User login
+│   │   │   │   • Email input
+│   │   │   │   • Password input
+│   │   │   │   • Form validation
+│   │   │   │
+│   │   │   ├── 📄 DashboardPage.tsx      → User dashboard
+│   │   │   │   • User profile card
+│   │   │   │   • My skills section
+│   │   │   │   • Other students' skills
+│   │   │   │   • Send request buttons
+│   │   │   │
+│   │   │   ├── 📄 AddSkillPage.tsx       → Add new skill
+│   │   │   │   • Skill name input
+│   │   │   │   • Description textarea
+│   │   │   │   • Tips section
+│   │   │   │
+│   │   │   └── 📄 RequestsPage.tsx       → Manage requests
+│   │   │       • Incoming requests tab
+│   │   │       • Sent requests tab
+│   │   │       • Accept/Reject buttons
+│   │   │       • Status badges
+│   │   │
+│   │   └── 📁 utils/
+│   │       │
+│   │       └── 📄 storage.ts             → Database simulation
+│   │           • User operations (register, login, logout)
+│   │           • Skill operations (add, get, filter)
+│   │           • Request operations (send, update, get)
+│   │           • Helper functions
+│   │
+│   └── 📁 styles/
+│       ├── 📄 index.css                  → Global styles
+│       ├── 📄 fonts.css                  → Font imports
+│       ├── 📄 tailwind.css               → Tailwind imports
+│       └── 📄 theme.css                  → Design tokens & CSS variables
+│
+└── 📁 node_modules/                      → Installed packages (after npm install)
+
+
+==========================================================
+KEY FILES YOU NEED TO COPY FOR LOCAL SETUP
+==========================================================
+
+ESSENTIAL FILES (Must have):
+✅ /src/app/App.tsx
+✅ /src/app/routes.tsx
+✅ /src/app/utils/storage.ts
+✅ /src/app/components/Layout.tsx
+✅ All 6 pages in /src/app/pages/
+✅ /src/styles/*.css files
+✅ /package.json
+✅ /vite.config.ts
+
+UI COMPONENTS (Copy as needed):
+✅ /src/app/components/ui/button.tsx
+✅ /src/app/components/ui/card.tsx
+✅ /src/app/components/ui/input.tsx
+✅ /src/app/components/ui/label.tsx
+✅ /src/app/components/ui/select.tsx
+✅ /src/app/components/ui/textarea.tsx
+✅ /src/app/components/ui/badge.tsx
+✅ /src/app/components/ui/tabs.tsx
+✅ /src/app/components/ui/sonner.tsx
+✅ /src/app/components/ui/utils.ts
+
+
+==========================================================
+ROUTING STRUCTURE
+==========================================================
+
+Route: /
+Page: HomePage.tsx
+Description: Landing page with hero section
+
+Route: /register
+Page: RegisterPage.tsx
+Description: User registration form
+
+Route: /login
+Page: LoginPage.tsx
+Description: User login form
+
+Route: /dashboard
+Page: DashboardPage.tsx
+Description: User dashboard (requires login)
+
+Route: /add-skill
+Page: AddSkillPage.tsx
+Description: Add new skill form (requires login)
+
+Route: /requests
+Page: RequestsPage.tsx
+Description: View and manage requests (requires login)
+
+
+==========================================================
+DATA STRUCTURE (localStorage)
+==========================================================
+
+Key: "users"
+Structure: Array<User>
+Example:
+[
+  {
+    "user_id": 1,
+    "name": "John Doe",
+    "email": "john@college.edu",
+    "department": "Computer Science",
+    "year": 3,
+    "password": "test123"
+  }
+]
+
+Key: "skills"
+Structure: Array<Skill>
+Example:
+[
+  {
+    "skill_id": 1,
+    "user_id": 1,
+    "skill_name": "React Development",
+    "description": "I can help with React basics and hooks"
+  }
+]
+
+Key: "requests"
+Structure: Array<Request>
+Example:
+[
+  {
+    "request_id": 1,
+    "sender_id": 2,
+    "receiver_id": 1,
+    "skill_id": 1,
+    "status": "Pending"
+  }
+]
+
+Key: "currentUser"
+Structure: User object (currently logged in)
+
+
+==========================================================
+FEATURES IMPLEMENTED
+==========================================================
+
+✅ User Authentication
+   • Registration with validation
+   • Login with credentials check
+   • Session management
+   • Logout functionality
+
+✅ Skill Management
+   • Add new skills
+   • View personal skills
+   • Browse other students' skills
+   • Card-based display
+
+✅ Request System
+   • Send skill requests
+   • View incoming requests
+   • Accept/Reject requests
+   • View sent requests status
+   • Status tracking (Pending/Accepted/Rejected)
+
+✅ UI/UX
+   • Responsive design (mobile + desktop)
+   • Blue and white professional theme
+   • Toast notifications
+   • Loading states
+   • Form validation
+   • Navigation bar with auth state
+
+✅ Data Persistence
+   • LocalStorage simulation
+   • CRUD operations
+   • Relational data structure
+   • Foreign key relationships
+
+
+==========================================================
+TECHNOLOGY STACK
+==========================================================
+
+Frontend Framework: React 18.3
+Routing: React Router 7
+Styling: Tailwind CSS 4
+UI Components: Radix UI
+Icons: Lucide React
+Notifications: Sonner
+Build Tool: Vite
+Language: TypeScript
+
+
+==========================================================
+FILE SIZE INFORMATION
+==========================================================
+
+Total Files: 50+ files
+Total Lines of Code: ~3,500+ lines
+Key Files Size:
+  • storage.ts: ~240 lines
+  • DashboardPage.tsx: ~160 lines
+  • RequestsPage.tsx: ~230 lines
+  • HomePage.tsx: ~120 lines
+  • Layout.tsx: ~70 lines
+
+
+==========================================================
+DEPLOYMENT READY
+==========================================================
+
+Build command: npm run build
+Output directory: dist/
+Compatible with: Vercel, Netlify, GitHub Pages
+
+
+==========================================================
+END OF PROJECT STRUCTURE
+==========================================================
