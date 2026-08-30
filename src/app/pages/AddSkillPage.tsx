@@ -7,7 +7,7 @@ import { Textarea } from "../components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { getCurrentUser, addSkill } from "../utils/storage";
 import { toast } from "sonner";
-import { BookOpen, ArrowLeft } from "lucide-react";
+import { BookOpen, ArrowLeft, Sparkles } from "lucide-react";
 
 export function AddSkillPage() {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ export function AddSkillPage() {
   });
 
   useEffect(() => {
-    // Redirect if not logged in
     if (!currentUser) {
       navigate('/login');
     }
@@ -26,16 +25,14 @@ export function AddSkillPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!currentUser) return;
 
-    // Validation
     if (!formData.skill_name || !formData.description) {
       toast.error('Please fill in all fields');
       return;
     }
 
-    // Add skill
     const result = addSkill({
       user_id: currentUser.user_id,
       skill_name: formData.skill_name,
@@ -59,88 +56,82 @@ export function AddSkillPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-gradient-to-br from-blue-50 to-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Back Button */}
-        <Link to="/dashboard" className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-6">
-          <ArrowLeft className="w-4 h-4 mr-2" />
+    <div className="animate-fade-up min-h-[calc(100vh-5rem)] px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl">
+        <Link to="/dashboard" className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-blue-700 transition-colors hover:text-blue-800">
+          <ArrowLeft className="h-4 w-4" />
           Back to Dashboard
         </Link>
 
-        <Card className="border-blue-100 shadow-xl">
-          <CardHeader className="space-y-1 text-center">
-            <div className="flex justify-center mb-4">
-              <div className="bg-blue-100 p-3 rounded-full">
-                <BookOpen className="w-8 h-8 text-blue-600" />
+        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <Card className="overflow-hidden border-0 bg-white/80 shadow-[0_30px_70px_rgba(59,130,246,0.12)] backdrop-blur-lg">
+            <CardHeader className="space-y-4 px-6 pt-8 text-center sm:px-8">
+              <div className="flex justify-center">
+                <div className="rounded-2xl bg-gradient-to-br from-blue-100 to-indigo-100 p-3 text-blue-700 shadow-sm">
+                  <BookOpen className="h-8 w-8" />
+                </div>
               </div>
+              <div>
+                <CardTitle className="text-3xl font-semibold text-slate-900">Add a new skill</CardTitle>
+                <CardDescription className="mt-2 text-slate-600">Share your expertise and help other students grow.</CardDescription>
+              </div>
+            </CardHeader>
+
+            <CardContent className="px-6 pb-8 pt-4 sm:px-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="skill_name" className="text-slate-700">Skill name</Label>
+                  <Input
+                    id="skill_name"
+                    type="text"
+                    placeholder="e.g., React development, graphic design, data analysis"
+                    value={formData.skill_name}
+                    onChange={(e) => handleChange('skill_name', e.target.value)}
+                    className="h-12 rounded-xl border-blue-200 bg-blue-50/40 focus:border-blue-500 focus:ring-blue-200"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="description" className="text-slate-700">Description</Label>
+                  <Textarea
+                    id="description"
+                    placeholder="Describe what you can teach, your experience level, and the kind of help you can offer..."
+                    value={formData.description}
+                    onChange={(e) => handleChange('description', e.target.value)}
+                    className="min-h-36 rounded-xl border-blue-200 bg-blue-50/40 focus:border-blue-500 focus:ring-blue-200"
+                  />
+                  <p className="text-sm text-slate-500">Be specific about your experience and what peers can learn from you.</p>
+                </div>
+
+                <Button type="submit" className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 py-6 text-base font-semibold text-white shadow-lg shadow-blue-200 hover:from-blue-500 hover:to-indigo-500">
+                  Add Skill
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          <div className="rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 shadow-[0_18px_45px_rgba(59,130,246,0.08)]">
+            <div className="flex items-center gap-3">
+              <div className="rounded-xl bg-blue-100 p-2 text-blue-700">
+                <Sparkles className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-900">Tips for a strong listing</h3>
             </div>
-            <CardTitle className="text-2xl text-blue-900">Add New Skill</CardTitle>
-            <CardDescription className="text-gray-600">
-              Share your expertise with fellow students
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Skill Name */}
-              <div className="space-y-2">
-                <Label htmlFor="skill_name" className="text-blue-900">Skill Name</Label>
-                <Input
-                  id="skill_name"
-                  type="text"
-                  placeholder="e.g., React Development, Graphic Design, Data Analysis"
-                  value={formData.skill_name}
-                  onChange={(e) => handleChange('skill_name', e.target.value)}
-                  className="border-blue-200 focus:border-blue-500"
-                />
-              </div>
 
-              {/* Description */}
-              <div className="space-y-2">
-                <Label htmlFor="description" className="text-blue-900">Description</Label>
-                <Textarea
-                  id="description"
-                  placeholder="Describe your skill and what you can help others with..."
-                  value={formData.description}
-                  onChange={(e) => handleChange('description', e.target.value)}
-                  className="border-blue-200 focus:border-blue-500 min-h-32"
-                />
-                <p className="text-sm text-gray-500">
-                  Provide details about your experience and what you can teach
-                </p>
-              </div>
-
-              {/* Submit Button */}
-              <Button 
-                type="submit" 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-6"
-              >
-                Add Skill
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Tips Section */}
-        <div className="mt-8 bg-blue-50 rounded-lg p-6 border border-blue-100">
-          <h3 className="text-lg text-blue-900 mb-3">Tips for adding skills:</h3>
-          <ul className="space-y-2 text-gray-700">
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-1">•</span>
-              <span>Be specific about what you can teach or help with</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-1">•</span>
-              <span>Mention your level of expertise (beginner, intermediate, advanced)</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-1">•</span>
-              <span>Include any relevant projects or experience</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-blue-600 mt-1">•</span>
-              <span>Keep your description clear and concise</span>
-            </li>
-          </ul>
+            <ul className="mt-6 space-y-4 text-sm text-slate-700">
+              {[
+                'Be specific about what you can teach or help with.',
+                'Mention your level of expertise, such as beginner, intermediate, or advanced.',
+                'Include relevant projects or real-world experience when helpful.',
+                'Keep the description concise, clear, and easy to scan.',
+              ].map((tip) => (
+                <li key={tip} className="flex items-start gap-3 rounded-2xl bg-white/70 p-3 shadow-sm">
+                  <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700">•</span>
+                  <span>{tip}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
